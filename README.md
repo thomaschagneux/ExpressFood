@@ -9,7 +9,9 @@ Sur son application, ExpressFood propose à ses clients de commander un ou plusi
 
 Une fois la commande passée, le client a accès à une page lui indiquant si un livreur a pris sa commande et le temps estimé avant livraison.
 
-ExpressFood a besoin que vous conceviez sa base de données. Il s'agit de stocker notamment :
+ExpressFood a besoin que vous conceviez sa base de données.
+
+## Il s'agit de stocker notamment :
 
     La liste des clients
     La liste des différents plats du jour
@@ -21,10 +23,14 @@ Pour structurer votre réflexion, vous utiliserez UML et construirez une suite d
 
 Vous veillerez à produire des schémas UML cohérents par rapport au cahier des charges et respectant les standards UML. Vous concevrez ensuite un schéma de base de données SQL adéquat.
 
-Schémas demandés :
+### Schémas demandés :
 
     Diagrammes de cas d’utilisation (création d’une commande, ajout d’un plat du jour, livraison d’une commande)
     Modèle de données
     Diagramme de classes
     Diagrammes de séquences (création d’une commande, ajout d’un plat du jour, livraison d’une commande)
 
+#### Livrables
+Dans le dossier livrables, vous trouverez:
+    - la base de donnée en .sql
+    - les différents schémas en .png
