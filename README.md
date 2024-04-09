@@ -23,14 +23,14 @@ Pour structurer votre réflexion, vous utiliserez UML et construirez une suite d
 
 Vous veillerez à produire des schémas UML cohérents par rapport au cahier des charges et respectant les standards UML. Vous concevrez ensuite un schéma de base de données SQL adéquat.
 
-### Schémas demandés :
+## Schémas demandés :
 
     Diagrammes de cas d’utilisation (création d’une commande, ajout d’un plat du jour, livraison d’une commande)
     Modèle de données
     Diagramme de classes
     Diagrammes de séquences (création d’une commande, ajout d’un plat du jour, livraison d’une commande)
 
-#### Livrables
-Dans le dossier livrables, vous trouverez:
-    - la base de donnée en .sql
-    - les différents schémas en .png
+## Livrables
+Dans le dossier livrables, vous trouverez :
+- La base de données en format SQL.
+- Les différents schémas en format PNG.
