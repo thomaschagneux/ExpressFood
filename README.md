@@ -32,5 +32,5 @@ Vous veillerez à produire des schémas UML cohérents par rapport au cahier des
 
 ## Livrables
 Dans le dossier livrables, vous trouverez :
-- La base de données en format SQL.
-- Les différents schémas en format PNG.
+    La base de données en format SQL.
+    Les différents schémas en format PNG.
