@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 09 avr. 2024 à 10:03
+-- Généré le : mer. 10 avr. 2024 à 10:37
 -- Version du serveur : 8.0.36-0ubuntu0.22.04.1
 -- Version de PHP : 8.1.2-1ubuntu2.14
 
@@ -32,7 +32,7 @@ CREATE TABLE `bag` (
   `quantity` int DEFAULT NULL,
   `daily_meal_id` int DEFAULT NULL,
   `delivery_person_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `bag`
@@ -54,7 +54,7 @@ INSERT INTO `bag` (`id`, `quantity`, `daily_meal_id`, `delivery_person_id`) VALU
 CREATE TABLE `chef` (
   `id` int NOT NULL,
   `name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `chef`
@@ -85,7 +85,7 @@ CREATE TABLE `customer` (
   `email` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `customer`
@@ -106,19 +106,19 @@ INSERT INTO `customer` (`id`, `first_name`, `last_name`, `birth_date`, `address`
 
 CREATE TABLE `daily_meal` (
   `id` int NOT NULL,
-  `date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `date` datetime DEFAULT NULL,
+  `chef_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `daily_meal`
 --
 
-INSERT INTO `daily_meal` (`id`, `date`) VALUES
-(1, '2024-04-08 00:00:00'),
-(2, '2024-04-09 00:00:00'),
-(3, '2024-04-10 00:00:00'),
-(4, '2024-04-11 00:00:00'),
-(5, '2024-04-12 00:00:00');
+INSERT INTO `daily_meal` (`id`, `date`, `chef_id`) VALUES
+(1, '2024-04-08 00:00:00', 1),
+(2, '2024-04-09 00:00:00', 1),
+(3, '2024-04-10 00:00:00', 2),
+(4, '2024-04-11 00:00:00', 3);
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `delivery_person` (
   `longitude` float DEFAULT NULL,
   `latitude` float DEFAULT NULL,
   `status` enum('available','unavailable') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `delivery_person`
@@ -155,7 +155,7 @@ INSERT INTO `delivery_person` (`id`, `first_name`, `last_name`, `longitude`, `la
 CREATE TABLE `delivery_person_order` (
   `delivery_person_id` int NOT NULL,
   `order_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `delivery_person_order`
@@ -180,7 +180,7 @@ CREATE TABLE `meal` (
   `type` enum('plat','dessert') DEFAULT NULL,
   `price` float DEFAULT NULL,
   `description` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `meal`
@@ -202,7 +202,7 @@ INSERT INTO `meal` (`id`, `name`, `type`, `price`, `description`) VALUES
 CREATE TABLE `meal_daily_meal` (
   `meal_id` int NOT NULL,
   `daily_meal_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `meal_daily_meal`
@@ -212,8 +212,7 @@ INSERT INTO `meal_daily_meal` (`meal_id`, `daily_meal_id`) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
-(4, 4),
-(5, 5);
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -230,19 +229,42 @@ CREATE TABLE `order` (
   `delivered_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `status` enum('created','in_progress','done') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `status` enum('created','in_progress','done') DEFAULT NULL,
+  `customer_id` int DEFAULT NULL,
+  `bag_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `order`
 --
 
-INSERT INTO `order` (`id`, `date`, `vat`, `total_price`, `numero`, `delivered_at`, `created_at`, `updated_at`, `status`) VALUES
-(1, '2024-04-08 10:00:00', 0.2, 30, 12345, '2024-04-08 10:00:00', '2024-04-08 10:00:00', '2024-04-09 10:00:00', 'created'),
-(2, '2024-04-08 11:00:00', 0.2, 25, 54321, '2024-04-08 11:00:00', '2024-04-08 11:00:00', '2024-04-09 11:00:00', 'created'),
-(3, '2024-04-09 09:00:00', 0.2, 40, 98765, '2024-04-09 09:00:00', '2024-04-09 09:00:00', '2024-04-10 09:00:00', 'created'),
-(4, '2024-04-09 10:00:00', 0.2, 35, 67890, '2024-04-09 10:00:00', '2024-04-09 10:00:00', '2024-04-10 10:00:00', 'created'),
-(5, '2024-04-10 12:00:00', 0.2, 45, 13579, '2024-04-10 12:00:00', '2024-04-10 12:00:00', '2024-04-11 12:00:00', 'created');
+INSERT INTO `order` (`id`, `date`, `vat`, `total_price`, `numero`, `delivered_at`, `created_at`, `updated_at`, `status`, `customer_id`, `bag_id`) VALUES
+(1, '2024-04-08 10:00:00', 0.2, 30, 12345, '2024-04-08 10:00:00', '2024-04-08 10:00:00', '2024-04-09 10:00:00', 'created', 1, 1),
+(2, '2024-04-08 11:00:00', 0.2, 25, 54321, '2024-04-08 11:00:00', '2024-04-08 11:00:00', '2024-04-09 11:00:00', 'created', 1, 2),
+(3, '2024-04-09 09:00:00', 0.2, 40, 98765, '2024-04-09 09:00:00', '2024-04-09 09:00:00', '2024-04-10 09:00:00', 'created', 2, 2),
+(4, '2024-04-09 10:00:00', 0.2, 35, 67890, '2024-04-09 10:00:00', '2024-04-09 10:00:00', '2024-04-10 10:00:00', 'created', 3, 3),
+(5, '2024-04-10 12:00:00', 0.2, 45, 13579, '2024-04-10 12:00:00', '2024-04-10 12:00:00', '2024-04-11 12:00:00', 'created', 4, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `order_daily_meal`
+--
+
+CREATE TABLE `order_daily_meal` (
+  `order_id` int NOT NULL,
+  `daily_meal_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+--
+-- Déchargement des données de la table `order_daily_meal`
+--
+
+INSERT INTO `order_daily_meal` (`order_id`, `daily_meal_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(2, 4);
 
 -- --------------------------------------------------------
 
@@ -255,7 +277,7 @@ CREATE TABLE `payment` (
   `stripe_id` int DEFAULT NULL,
   `customer_id` int DEFAULT NULL,
   `order_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `payment`
@@ -279,14 +301,14 @@ CREATE TABLE `picture` (
   `file_name` varchar(255) DEFAULT NULL,
   `file_path` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 --
 -- Déchargement des données de la table `picture`
 --
 
-INSERT INTO `picture` (`id`, `file_name`, `file_path`, `created_at`, `updated_at_at`) VALUES
+INSERT INTO `picture` (`id`, `file_name`, `file_path`, `created_at`, `updated_at`) VALUES
 (1, 'plat1.jpg', '/images/', '2024-04-08 10:00:00', '2024-04-08 10:00:00'),
 (2, 'plat2.jpg', '/images/', '2024-04-08 10:00:00', '2024-04-08 10:00:00'),
 (3, 'plat3.jpg', '/images/', '2024-04-08 10:00:00', '2024-04-08 10:00:00'),
@@ -321,7 +343,8 @@ ALTER TABLE `customer`
 -- Index pour la table `daily_meal`
 --
 ALTER TABLE `daily_meal`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chef_id` (`chef_id`);
 
 --
 -- Index pour la table `delivery_person`
@@ -353,7 +376,16 @@ ALTER TABLE `meal_daily_meal`
 -- Index pour la table `order`
 --
 ALTER TABLE `order`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `bag_id` (`bag_id`);
+
+--
+-- Index pour la table `order_daily_meal`
+--
+ALTER TABLE `order_daily_meal`
+  ADD PRIMARY KEY (`order_id`,`daily_meal_id`),
+  ADD KEY `daily_meal_id` (`daily_meal_id`);
 
 --
 -- Index pour la table `payment`
@@ -384,7 +416,7 @@ ALTER TABLE `bag`
 -- Contraintes pour la table `daily_meal`
 --
 ALTER TABLE `daily_meal`
-  ADD CONSTRAINT `daily_meal_ibfk_1` FOREIGN KEY (`id`) REFERENCES `chef` (`id`);
+  ADD CONSTRAINT `daily_meal_ibfk_1` FOREIGN KEY (`chef_id`) REFERENCES `chef` (`id`);
 
 --
 -- Contraintes pour la table `delivery_person_order`
@@ -404,8 +436,15 @@ ALTER TABLE `meal_daily_meal`
 -- Contraintes pour la table `order`
 --
 ALTER TABLE `order`
-  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`id`) REFERENCES `customer` (`id`),
-  ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`id`) REFERENCES `bag` (`id`);
+  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+  ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`bag_id`) REFERENCES `bag` (`id`);
+
+--
+-- Contraintes pour la table `order_daily_meal`
+--
+ALTER TABLE `order_daily_meal`
+  ADD CONSTRAINT `order_daily_meal_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
+  ADD CONSTRAINT `order_daily_meal_ibfk_2` FOREIGN KEY (`daily_meal_id`) REFERENCES `daily_meal` (`id`);
 
 --
 -- Contraintes pour la table `payment`
