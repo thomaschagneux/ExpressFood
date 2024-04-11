@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 10 avr. 2024 à 10:37
+-- Généré le : jeu. 11 avr. 2024 à 12:24
 -- Version du serveur : 8.0.36-0ubuntu0.22.04.1
 -- Version de PHP : 8.1.2-1ubuntu2.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `project`
+-- Base de données : `expressFood`
 --
 
 -- --------------------------------------------------------
@@ -253,18 +253,19 @@ INSERT INTO `order` (`id`, `date`, `vat`, `total_price`, `numero`, `delivered_at
 
 CREATE TABLE `order_daily_meal` (
   `order_id` int NOT NULL,
-  `daily_meal_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+  `daily_meal_id` int NOT NULL,
+  `quantity` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `order_daily_meal`
 --
 
-INSERT INTO `order_daily_meal` (`order_id`, `daily_meal_id`) VALUES
-(1, 1),
-(1, 2),
-(2, 3),
-(2, 4);
+INSERT INTO `order_daily_meal` (`order_id`, `daily_meal_id`, `quantity`) VALUES
+(1, 1, 0),
+(1, 2, 0),
+(2, 3, 0),
+(2, 4, 0);
 
 -- --------------------------------------------------------
 
